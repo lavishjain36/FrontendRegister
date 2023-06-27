@@ -14,8 +14,7 @@ const App=()=>{
       <Routes>
      
         <Route path="/"   element={ loginUser && loginUser._id ? <Homepage setLoginUser={setLoginUser}/>:<Login setLoginUser={setLoginUser}/>}/>
-       
-        <Route path="/login"   element={<Login/>}/>
+        <Route path="/login"   element={<Login setLoginUser={setLoginUser}/>}/>
         <Route path="/register"   element={<Register/>}/>
       </Routes>
     </Router>
