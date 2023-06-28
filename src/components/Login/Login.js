@@ -23,7 +23,7 @@ const Login=({setLoginUser})=>{
     //login function when user clicked on button
     const login=async()=>{
         //send a post request to server using user credentials
-        await axios.post("http://localhost:9002/login",user).then((res)=>{
+        await axios.post("https://registrationbackend-6onb.onrender.com/login",user).then((res)=>{
             alert(res.data.message);//getting the data->Login Successful
             //update the login user state with response data
             console.log(res.data.user)
