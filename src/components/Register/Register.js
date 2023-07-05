@@ -29,9 +29,23 @@ const Register=()=>{
         const {name,email,password,reEnteredPassword}=user;
 
         //make all fields mandatory
-        if(name&&email&&password&&password===reEnteredPassword){
-            await axios
-            .post("https://registrationbackend-6onb.onrender.com/register",user)
+        // if(name&&email&&password&&password===reEnteredPassword){
+        //     const hashedpassword=await bcrypt.hash(password,10);//hash the password
+        //     await axios
+        //     .post("http://localhost:9002/register",{
+        //         ...user,
+        //         password:hashedpassword
+        //     })
+        //     .then((res)=>alert(res.data.message));
+        //     //once registration is done ,we have to navigate to login page
+        //     navigate("/login");
+        // }else{
+        //     alert("Invalid Data.Please enter valid credential")
+        // }
+
+         if(name&&email&&password&&password===reEnteredPassword){
+            // const hashedpassword=await bcrypt.hash(password,10);//hash the password
+          await axios.post("http://localhost:9002/register",user)
             .then((res)=>alert(res.data.message));
             //once registration is done ,we have to navigate to login page
             navigate("/login");
@@ -89,3 +103,4 @@ const Register=()=>{
 }
 
 export default Register;
+

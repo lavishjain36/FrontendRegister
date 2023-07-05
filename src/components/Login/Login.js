@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button } from "react-bootstrap";
-const Login=({setLoginUser})=>{
+const Login=({setLoginUser,loginUser})=>{
     const navigate=useNavigate();
     //define state variable with useState hook
     const [user,setUser]=useState({
@@ -22,18 +22,22 @@ const Login=({setLoginUser})=>{
 
     //login function when user clicked on button
     const login=async()=>{
-        //send a post request to server using user credentials
-        await axios.post("https://registrationbackend-6onb.onrender.com/login",user).then((res)=>{
+        try {
+                        //send a post request to server using user credentials
+        await axios.post("http://localhost:9002/login",user).then((res)=>{
             alert(res.data.message);//getting the data->Login Successful
             //update the login user state with response data
-            console.log(res.data.user)
-            
-          setLoginUser(res.data.user);
-
-            // setLoginUser(res.data.user);
+            // console.log(res.data.user);
+            if(res.status===200){
+                setLoginUser(res.data.token);
+                localStorage.setItem('jwt-token',res.data.token);
+                navigate("/");
+            }
         });
-        //after login is successful ,navigate to the home page
-        navigate("/");
+            
+        } catch (error) {
+            alert(error);
+        }
     }
     return(
       <>
@@ -63,9 +67,15 @@ const Login=({setLoginUser})=>{
         <Button variant="primary" onClick={()=>navigate('/register')}>
             Register
         </Button>
+
+        <Button variant="primary" onClick={()=>navigate('/forgotpassword')}>
+            ForgotPassword
+        </Button>
         </div>
       </div>
       </>
     )
 }
 export default Login;
+
+

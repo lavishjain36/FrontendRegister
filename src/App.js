@@ -2,20 +2,26 @@ import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Homepage from "./components/Homepage/Homepage";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
-import { useState } from "react";
+import {  useState } from "react";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import ResetPassword from "./components/ResetPassword/ResetPassword";
+
 
 const App=()=>{
-  const [loginUser,setLoginUser]=useState({});
+  const [loginUser,setLoginUser]=useState(localStorage.getItem('jwt-token'));
   console.log(loginUser);
-  console.log(setLoginUser);
+ 
   return(
   <div className="App">
     <Router>
       <Routes>
      
-        <Route path="/"   element={ loginUser && loginUser._id ? <Homepage setLoginUser={setLoginUser}/>:<Login setLoginUser={setLoginUser}/>}/>
-        <Route path="/login"   element={<Login setLoginUser={setLoginUser}/>}/>
+        {/* <Route path="/"   element={ loginUser && loginUser._id ? <Homepage setLoginUser={setLoginUser}/>:<Login setLoginUser={setLoginUser}/>}/> */}
+        <Route path="/" element={<Homepage loginUser={loginUser} setLoginUser={setLoginUser}/>}/>
+        <Route path="/login"   element={<Login setLoginUser={setLoginUser} loginUser={loginUser}/>}/>
         <Route path="/register"   element={<Register/>}/>
+        <Route path="/forgotpassword" element={<ForgotPassword/>}/>
+        <Route path="/resetpassword/:token" element={<ResetPassword/>}/>
       </Routes>
     </Router>
   </div>
@@ -23,3 +29,7 @@ const App=()=>{
 }
 
 export default App;
+
+
+
+
